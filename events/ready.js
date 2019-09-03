@@ -17,13 +17,19 @@ module.exports = (client) => {
 
     console.log("====================");
 
+    let guild;
+    let channel;
+    let guildName;
+    let guildOwner;
+
+
     sub.subscribe("addedGuild");
 
     sub.on("addedGuild", (channel, message) => {
-        const guild = client.guilds.get("470582456828035073");
-        const channel = guild.channels.get("618398163837124609");
-        const [guildName, guildOwner] = message;
-        const embed = new Discord.RichEmbed()
+        guild = client.guilds.get("470582456828035073");
+        channel = guild.channels.get("618398163837124609");
+        [guildName, guildOwner] = message;
+        embed = new Discord.RichEmbed()
             .setColor(0x2FF37A)
             .setTitle(`New guild has added me`)
             .setDescription(`${guildName} can now use commands I serve!`)
@@ -35,10 +41,10 @@ module.exports = (client) => {
     sub.subscribe("leftGuild");
 
     sub.on("leftGuild", (channel, message) => {
-        const guild = client.guilds.get("470582456828035073");
-        const channel = guild.channels.get("618398163837124609");
-        const [guildName, guildOwner] = message;
-        const embed = new Discord.RichEmbed()
+        guild = client.guilds.get("470582456828035073");
+        channel = guild.channels.get("618398163837124609");
+        [guildName, guildOwner] = message;
+        embed = new Discord.RichEmbed()
             .setColor(0x2FF37A)
             .setTitle(`Guild kicked me :(`)
             .setDescription(`${guildName} is not needing me anymore...`)

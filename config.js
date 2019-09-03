@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 module.exports = {
-    "token": process.env.D_TOKEN,
+    "token": process.env.DC_TOKEN,
     "redis": {
         "host": process.env.R_HOST,
         "retry_strategy": function (options) {
