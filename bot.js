@@ -4,8 +4,6 @@ const fs = require("fs");
 const client = new Discord.Client();
 const { token } = require('./config.js');
 
-client.config = general;
-
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
