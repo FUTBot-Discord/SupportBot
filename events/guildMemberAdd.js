@@ -6,7 +6,10 @@ module.exports = (client, member) => {
     const embed = new Discord.RichEmbed()
         .setColor(0x2FF37A)
         .setTitle(`New user joined the guild`)
-        .setDescription(`${member.user} has joined the guild!`)
+        .setDescription(`${member.user.tag} has joined the guild!`)
 
-    return channel.send(embed);
+    channel.send(embed)
+        .catch(e => {
+            console.log(e)
+        })
 }

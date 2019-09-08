@@ -19,21 +19,18 @@ module.exports = (client) => {
 
     let guild;
     let channel;
-    let guildName;
-    let guildOwner;
-
 
     sub.subscribe("addedGuild");
 
     sub.on("addedGuild", (channel, message) => {
         guild = client.guilds.get("470582456828035073");
         channel = guild.channels.get("618398163837124609");
-        [guildName, guildOwner] = message;
+        let { name, owner } = message;
         embed = new Discord.RichEmbed()
             .setColor(0x2FF37A)
             .setTitle(`New guild has added me`)
-            .setDescription(`${guildName} can now use commands I serve!`)
-            .addField(`Thanks ${guildOwner.displayName} for adding me!`);
+            .setDescription(`${name} can now use commands I serve!`)
+            .addField(`Thanks ${owner.displayName} for adding me!`);
 
         channel.send(embed);
     });
@@ -43,12 +40,12 @@ module.exports = (client) => {
     sub.on("leftGuild", (channel, message) => {
         guild = client.guilds.get("470582456828035073");
         channel = guild.channels.get("618398163837124609");
-        [guildName, guildOwner] = message;
+        let { name, owner } = message;
         embed = new Discord.RichEmbed()
             .setColor(0x2FF37A)
             .setTitle(`Guild kicked me :(`)
-            .setDescription(`${guildName} is not needing me anymore...`)
-            .addField(`I don't love you ${guildOwner.displayName}`);
+            .setDescription(`${name} is not needing me anymore...`)
+            .addField(`I don't love you ${owner.displayName}`);
 
         channel.send(embed);
     });

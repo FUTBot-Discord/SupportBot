@@ -6,7 +6,10 @@ module.exports = (client, member) => {
     const embed = new Discord.RichEmbed()
         .setColor(0x2FF37A)
         .setTitle(`User left the guild :(`)
-        .setDescription(`${member.user} you're not my favorite anymore...`)
+        .setDescription(`${member.user.tag} you're not my favorite anymore...`)
 
-    return channel.send(embed);
+    channel.send(embed)
+        .catch(e => {
+            console.log(e)
+        })
 }
