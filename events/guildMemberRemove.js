@@ -8,7 +8,7 @@ pub.on("error", (err) => {
 });
 
 module.exports = (client, member) => {
-    pub.publish("updateStatus");
+    pub.publish("updateStatus", " ");
 
     const channel = member.guild.channels.get("534766452138311690");
 
