@@ -3,6 +3,10 @@ const { redis } = require("../config");
 const sub = rediss.createClient(redis);
 const Discord = require("discord.js");
 
+sub.on("error", (err) => {
+    console.log(`Error ${err}`);
+});
+
 module.exports = (client) => {
     client.user.setActivity(`startup process, give me a moment plz ,_,`, { type: 'PLAYING' });
 
@@ -17,36 +21,38 @@ module.exports = (client) => {
 
     console.log("====================");
 
-    let guild;
-    let channel;
+    sub.on("message", (channel, message) => {
+        let guild = client.guilds.get("470582456828035073");
+        let notifyChannel = guild.channels.get("618398163837124609");
+        let { guildName, guildOwner } = JSON.parse(message);
 
-    sub.subscribe("addedGuild");
+        if (channel == 'addedGuild') {
+            embed = new Discord.RichEmbed()
+                .setColor(0x2FF37A)
+                .setTitle(`New guild has added me`)
+                .setDescription(`${guildName} can now use commands I serve!`)
+                .setFooter(`Thanks ${guildOwner} for adding me!`);
+        } else if (channel == 'leftGuild') {
+            embed = new Discord.RichEmbed()
+                .setColor(0x2FF37A)
+                .setTitle(`Guild kicked me :(`)
+                .setDescription(`${guildName} is not needing me anymore...`)
+                .setFooter(`I don't love you ${guildOwner}`);
+        } else if (channel == 'updateStatus') {
+            let usercount = 0;
 
-    sub.on("addedGuild", (channel, message) => {
-        guild = client.guilds.get("470582456828035073");
-        channel = guild.channels.get("618398163837124609");
-        let { name, owner } = message;
-        embed = new Discord.RichEmbed()
-            .setColor(0x2FF37A)
-            .setTitle(`New guild has added me`)
-            .setDescription(`${name} can now use commands I serve!`)
-            .addField(`Thanks ${owner.displayName} for adding me!`);
+            for (i = 0; i < client.guilds.size; i++) {
+                usercount += client.guilds.array()[i].memberCount;
+            }
 
-        channel.send(embed);
+            client.user.setActivity(`${usercount} users`, { type: 'WATCHING' });
+        }
+
+        notifyChannel.send(embed);
     });
 
+    sub.subscribe("updateStatus");
+    sub.subscribe("addedGuild");
     sub.subscribe("leftGuild");
 
-    sub.on("leftGuild", (channel, message) => {
-        guild = client.guilds.get("470582456828035073");
-        channel = guild.channels.get("618398163837124609");
-        let { name, owner } = message;
-        embed = new Discord.RichEmbed()
-            .setColor(0x2FF37A)
-            .setTitle(`Guild kicked me :(`)
-            .setDescription(`${name} is not needing me anymore...`)
-            .addField(`I don't love you ${owner.displayName}`);
-
-        channel.send(embed);
-    });
 };

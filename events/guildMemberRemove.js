@@ -1,6 +1,15 @@
 const Discord = require("discord.js");
+const rediss = require("redis");
+const { redis } = require("../config");
+const pub = rediss.createClient(redis);
+
+pub.on("error", (err) => {
+    console.log(`Error ${err}`);
+});
 
 module.exports = (client, member) => {
+    pub.publish("updateStatus");
+
     const channel = member.guild.channels.get("534766452138311690");
 
     const embed = new Discord.RichEmbed()
