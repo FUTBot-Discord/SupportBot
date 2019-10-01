@@ -1,16 +1,15 @@
 const Discord = require("discord.js");
-const rediss = require("redis");
-const { redis } = require("../config");
-const pub = rediss.createClient(redis);
-
-pub.on("error", (err) => {
-    console.log(`Error ${err}`);
-});
 
 module.exports = (client, member) => {
-    pub.publish("updateStatus", " ");
-
     const channel = member.guild.channels.get("534766452138311690");
+
+    let usercount = 0;
+
+    for (i = 0; i < client.guilds.size; i++) {
+        usercount += client.guilds.array()[i].memberCount;
+    }
+
+    client.user.setActivity(`${usercount} users`, { type: 'WATCHING' });
 
     const embed = new Discord.RichEmbed()
         .setColor(0x2FF37A)

@@ -38,14 +38,6 @@ module.exports = (client) => {
                 .setTitle(`Guild kicked me :(`)
                 .setDescription(`${guildName} is not needing me anymore...`)
                 .setFooter(`I don't love you ${guildOwner}`);
-        } else if (channel == 'updateStatus') {
-            let usercount = 0;
-
-            for (i = 0; i < client.guilds.size; i++) {
-                usercount += client.guilds.array()[i].memberCount;
-            }
-
-            client.user.setActivity(`${usercount} users`, { type: 'WATCHING' });
         }
 
         notifyChannel.send(embed);
