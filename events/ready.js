@@ -19,7 +19,7 @@ module.exports = (client) => {
     });
 
     app.post('/votes', (req, res) => {
-        console.log(req)
+        console.log(req.params)
     });
 
     app.use((req, res) => {
