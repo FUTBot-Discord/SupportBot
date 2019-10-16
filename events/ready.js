@@ -21,7 +21,7 @@ module.exports = (client) => {
     app.post('/votes', (req, res) => {
         console.log(req.body);
         let vGuild = client.guilds.get("470582456828035073");
-        let vChannel = guild.channels.get("542756397230718976");
+        let vChannel = vGuild.channels.get("542756397230718976");
         vChannel.send(`\`\`\`${req.body}\`\`\``);
     });
 
