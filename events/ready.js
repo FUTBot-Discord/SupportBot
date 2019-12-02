@@ -75,7 +75,7 @@ module.exports = client => {
 
     addPointsToClub(iUser.id, 65);
 
-    if (bot === "520694612080328709") {
+    if (bot == "520694612080328709") {
       notifyChannel = guild.channels.get("650800677215404083");
     } else {
       notifyChannel = guild.channels.get("650800555542708234");
@@ -137,7 +137,7 @@ module.exports = client => {
         .setFooter(`I don't love you ${guildOwner}`);
     }
 
-    if (botId === "520694612080328709") {
+    if (botId == "520694612080328709") {
       notifyChannel = guild.channels.get("618398163837124609");
     } else {
       notifyChannel = guild.channels.get("640560405101543424");
